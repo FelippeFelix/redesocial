@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<title>MyCodeBlog</title>
+</head>
+
+<body>
+	
+	<header th:replace="fragments/header">
+	
+	</header>
+	
+	<section>
+		<div class="container" style="width: 60%; padding-bottom: 30px;">
+			
+			<nav>
+				<ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+					<li class="breadcrumb-item active" aria-current="page">Posts</li>
+				</ol>
+			</nav>
+			
+			<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
+				<div class="card-body">
+					<p class="card-subtitle text-muted" style="font-size: 0.8rem;">
+						<a th:href="${(#mvc.url('UC#getPerfil').arg(0, post.autor.username)).build()}" ><span th:text="${post.autor.nome}"></span></a>
+						<span th:text="${post.data}"></span>
+					</p>
+					<div style="display: flex; justify-content: right;" th:if="${post.autor.id == usuarioLogado.id}">
+						<a th:href="${(#mvc.url('CBC#getPostFormEdit').arg(0, post.id)).build()}" class="mx-1" >Editar</a>
+						
+						<!-- Button trigger modal -->
+					    <a th:href="${(#mvc.url('CBC#getPostRemove').arg(0, post.id)).build()}" data-toggle="modal" data-target="#exampleModal" class="mx-1" >Remover</a>
+					</div>
+					
+				    <!-- Modal -->
+				    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				        <div class="modal-dialog">
+				            <div class="modal-content">
+				                <div class="modal-header">
+				                    <h5 class="modal-title" id="exampleModalLabel">Remover Post</h5>
+				                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                        <span aria-hidden="true">&times;</span>
+				                    </button>
+				                </div>
+				                <div class="modal-body">
+				                    Tem certeza que deseja excluir esse post?
+				                </div>
+				                <div class="modal-footer">
+				                	<form th:action="${getPostRemove}" th:object="${post}" method="post">
+				                		<input type="hidden" name="id" th:value="${post.id}">
+					                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					                    <button type="submit" class="btn btn-primary">Sim</button>
+				                    </form>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+					
+					<a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
+						<span th:text="${post.titulo}"></span>
+					</h4></a>
+					
+					<p class="card-text"><span th:utext="${#strings.abbreviate(post.texto, 400)}"></span></p>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>

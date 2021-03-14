@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>MyCodeBlog</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+</head>
+
+<body>
+	<header th:replace="fragments/header"> </header>
+
+
+	<main>
+		<div class="container" style="width: 60%; padding-bottom: 30px;">
+
+			<nav>
+				<ol class="breadcrumb"
+					style="background-color: white; padding-left: 0px;">
+					<li class="breadcrumb-item" aria-current="page"><a
+						href="/posts">Posts</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Post</li>
+				</ol>
+			</nav>
+
+			<section class="card shadow-sm bg-white rounded"
+				style="margin-top: 20px;">
+				<div class="card-body">
+					<h1 class="card-title"
+						style="font-weight: bold; margin-bottom: 20px;">
+						<span th:text="${post.titulo}"></span>
+					</h1>
+
+					<p class="card-subtitle mb-2 text-muted">
+						<i class="material-icons">person_outline</i> <span
+							th:text="${post.autor.nome}"></span> <br> <i
+							class="material-icons">date_range</i> <span
+							th:text="${post.data}"></span> <i class="bi bi-pencil"></i>
+					</p>
+
+					<section>
+						<p class="card-text" style="margin-top: 40px;">
+							<span th:utext="${post.texto}"></span>
+						</p>
+					</section>
+
+				</div>
+			</section>
+
+			<h2 class="my-3" style="font-size: 20px">Comentários (1)</h2>
+			<section class="card shadow-sm bg-white rounded"
+				style="margin-top: 20px;">
+				<div class="card-body">
+					<article class="col-xl-8">
+
+						<h5 class="mb-2 mt-5">Luiz Otávio disse:</h5>
+						<small class="text-muted">hoje</small>
+						<p class="mb-1">Lorem ipsum dolor sit amet, consectetuer
+							adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+							Cum sociis natoque penatibus et magnis dis parturient montes,
+							nascetur ridiculus mus. Donec quam felis, ultricies nec,
+							pellentesque eu, pretium quis, sem. Nulla consequat massa quis
+							enim. Donec pede justo, fringilla vel, aliquet nec, vulputate&lt;</p>
+
+					</article>
+					<div class="col-xl"></div>
+				</div>
+			</section>
+
+
+		</div>
+	</main>
+	<footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>
