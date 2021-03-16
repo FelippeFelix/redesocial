@@ -47,26 +47,31 @@
 				</div>
 			</section>
 
-			<h2 class="my-3" style="font-size: 20px">Comentários (1)</h2>
+			<h2 class="my-3" style="font-size: 20px">Comentários (<span th:text="${comentarios.size}"></span>)</h2>
 			<section class="card shadow-sm bg-white rounded"
-				style="margin-top: 20px;">
+				style="margin-top: 20px;" th:each="comentario : ${comentarios}">
 				<div class="card-body">
 					<article class="col-xl-8">
 
-						<h5 class="mb-2 mt-5">Luiz Otávio disse:</h5>
-						<small class="text-muted">hoje</small>
-						<p class="mb-1">Lorem ipsum dolor sit amet, consectetuer
-							adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-							Cum sociis natoque penatibus et magnis dis parturient montes,
-							nascetur ridiculus mus. Donec quam felis, ultricies nec,
-							pellentesque eu, pretium quis, sem. Nulla consequat massa quis
-							enim. Donec pede justo, fringilla vel, aliquet nec, vulputate&lt;</p>
+						<h5 class="mb-2 mt-5"><span th:text="${comentario.autor.nome}" ></span> disse:</h5>
+						<small class="text-muted"><span th:text="${comentario.data}"></span></small>
+						<p class="mb-1"><span th:text="${comentario.texto}"></span></p>
 
 					</article>
 					<div class="col-xl"></div>
 				</div>
 			</section>
-
+			
+			<section>
+				<th:block th:include="/fragments/mensagemValidacao"></th:block>
+				<form action="" method="post">
+					<h2 class="my-3" style="font-size: 20px">Deixe um comentário</h2>
+					<textarea class="form-control mb-3" name="texto"
+							placeholder="Comentário *" ></textarea>
+					<button type="submit" class="btn btn-primary"
+						style="margin-top: 10px;">Publicar Comentário</button>
+				</form>
+			</section>
 
 		</div>
 	</main>

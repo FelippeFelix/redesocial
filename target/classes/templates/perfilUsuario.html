@@ -37,10 +37,10 @@
 						<span th:text="${post.data}"></span>
 					</p>
 					<div style="display: flex; justify-content: right;" th:if="${post.autor.id == usuarioLogado.id}">
-						<a th:href="${(#mvc.url('CBC#getPostFormEdit').arg(0, post.id)).build()}" class="mx-1" >Editar</a>
+						<a th:href="${(#mvc.url('PC#getPostFormEdit').arg(0, post.id)).build()}" class="mx-1" >Editar</a>
 						
 						<!-- Button trigger modal -->
-					    <a th:href="${(#mvc.url('CBC#getPostRemove').arg(0, post.id)).build()}" data-toggle="modal" data-target="#exampleModal" class="mx-1" >Remover</a>
+					    <a th:href="${(#mvc.url('PC#getPostRemove').arg(0, post.id)).build()}" data-toggle="modal" data-target="#exampleModal" class="mx-1" >Remover</a>
 					</div>
 					
 				    <!-- Modal -->
@@ -67,7 +67,7 @@
 				        </div>
 				    </div>
 					
-					<a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
+					<a th:href="${(#mvc.url('PC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
 						<span th:text="${post.titulo}"></span>
 					</h4></a>
 					
