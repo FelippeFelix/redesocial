@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
+
 <head>
-<title>MyCodeBlog</title>
+	<title>MyCodeBlog</title>
 </head>
 
 <body>
@@ -12,53 +13,46 @@
 		<div class="container" style="width: 60%; padding-bottom: 30px;">
 
 			<nav>
-				<ol class="breadcrumb"
-					style="background-color: white; padding-left: 0px;">
+				<ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
 					<li class="breadcrumb-item active" aria-current="page">Posts</li>
 				</ol>
 			</nav>
 
-			<div class="card shadow-sm bg-white rounded"
-				style="margin-top: 20px;" th:each="post : ${posts}">
+			<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
+				th:id="'card-post-' + ${post.id}" th:each="post : ${posts}">
 				<div class="card-body">
 					<p class="card-subtitle text-muted" style="font-size: 0.8rem;">
-						<a
-							th:href="${(#mvc.url('UC#getPerfil').arg(0, post.autor.username)).build()}"><span
-							th:text="${post.autor.nome}"></span></a> <span th:text="${post.data}"></span>
+						<a th:href="@{'perfil/' + ${post.autor.username}}" id="autor-post">
+							<span th:text="${post.autor.nome}"></span>
+						</a>
+						<span th:text="${post.data}" id="data-post" ></span>
 					</p>
-					<div style="display: flex; justify-content: right;"
-						th:if="${post.autor.id == usuarioLogado.id}">
-						<a
-							th:href="${(#mvc.url('PC#getPostFormEdit').arg(0, post.id)).build()}"
-							class="mx-1">Editar</a>
-	
-						<a th:href="${(#mvc.url('PC#getPostRemove').arg(0, post.id)).build()}"
-										class="mx-1">Remover</a>
+					<div style="display: flex; justify-content: right;" th:if="${post.autor.id == usuarioLogado.id}">
+						<a th:href="'post/editar/' + ${post.id}" class="mx-1">Editar</a>
+
+						<button type="button" class="btn btn-link mx-1" th:id="'btn-modal-remove-' + ${post.id}" th:value="${post.id}">Remover</button>
 						<!-- Button trigger modal -->
 						<!-- a href="#" data-toggle="modal" data-target="#exampleModal" th:data-id="post.id"
 							class="mx-1">Remover</a -->
 					</div>
 
 					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel">Remover
 										Post</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">Tem certeza que deseja excluir
 									esse post?</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Close</button>
-									<a th:href="${(#mvc.url('PC#getPostRemove').arg(0, post.id)).build()}"
-										class="btn btn-primary">Sim</a>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+									<button type="button" id="btn-deletar" class="btn btn-primary" data-dismiss="modal">Sim</button>
 
 
 								</div>
@@ -66,11 +60,11 @@
 						</div>
 					</div>
 
-					<a th:href="${(#mvc.url('PC#getPostDetails').arg(0, post.id)).build()}"><h4
-							class="card-title"
-							style="font-weight: bold; color: black; padding-top: 5px;">
+					<a th:href="${(#mvc.url('PC#getPostDetails').arg(0, post.id)).build()}">
+						<h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
 							<span th:text="${post.titulo}"></span>
-						</h4></a>
+						</h4>
+					</a>
 
 					<p class="card-text">
 						<span th:utext="${#strings.abbreviate(post.texto, 400)}"></span>
@@ -82,7 +76,9 @@
 	</section>
 
 	<footer th:replace="fragments/footer"></footer>
-	
+
+	<script th:src="@{/js/postagens.js}" th:fragment="js"></script>
+
 </body>
 
 </html>
